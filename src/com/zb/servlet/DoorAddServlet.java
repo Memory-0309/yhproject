@@ -28,7 +28,7 @@ public class DoorAddServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        resp.sendRedirect("/doorList");
+        resp.sendRedirect(""+req.getContextPath()+"/doorList");
 
     }
 }
