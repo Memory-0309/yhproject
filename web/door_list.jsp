@@ -18,6 +18,8 @@
 	hr{ margin-bottom:20px; border:1px solid #aaa; }
 	#add-door{text-align:center;font-size:20px;}
 </style>
+	<script type="text/javascript" src="js/echarts.js"></script>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body><!-- body-start  -->
 
@@ -55,9 +57,9 @@
 			<td>${door.tel}</td>
 			<td>${door.addr}</td>
 			<td>
-				<a href="doorDelete?id=${door.id}">删除</a>
+				<a href="${pageContext.request.contextPath}/doorDelete?id=${door.id}">删除</a>
 				&nbsp;|&nbsp;
-				<a href="doorInfo?id=${door.id}">修改</a>
+				<a href="${pageContext.request.contextPath}/doorInfo?id=${door.id}">修改</a>
 			</td>
 		</tr>
 	</c:forEach>
