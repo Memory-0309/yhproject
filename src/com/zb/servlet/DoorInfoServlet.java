@@ -22,6 +22,5 @@ public class DoorInfoServlet extends HttpServlet {
         System.out.println(door);
         request.setAttribute("door",door);
         request.getRequestDispatcher("/door_update.jsp").forward(request,response);
-
     }
 }
