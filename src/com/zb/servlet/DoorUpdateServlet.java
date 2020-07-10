@@ -25,6 +25,6 @@ public class DoorUpdateServlet extends HttpServlet {
         door.setAddr(addr);
         DoorDao doorDao = new DoorDao();
         doorDao.updateById(door);
-        response.sendRedirect("/doorList");
+        response.sendRedirect(""+request.getContextPath()+"/doorList");
     }
 }
