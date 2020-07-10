@@ -31,11 +31,8 @@ public class DoorDao {
         }
         System.out.println(list);
         DBUtils.close(conn);
-
         return list;
-
     }
-
     public void addDoor(Door door) throws SQLException {
         Connection conn = DBUtils.getConnectionByDatasource();
         String sql = "insert into tb_door values (null,?,?,?)";
@@ -45,5 +42,60 @@ public class DoorDao {
         ps.setString(3,door.getAddr());
         ps.executeUpdate();
         DBUtils.close(conn);
+    }
+    public Door findById(Integer id){
+        Door door = null;
+        Connection conn =null;
+        try {
+            conn = DBUtils.getConnectionByDatasource();
+            String sql = "select * from tb_door where id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                door = new Door();
+                door.setId( rs.getInt("id"));
+                door.setName(rs.getString("name"));
+                door.setTel(rs.getString("tel"));
+                door.setAddr(rs.getString("addr"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn);
+        }
+        return door;
+    }
+    public void updateById(Door door){
+        Connection conn = null;
+        try {
+            conn = DBUtils.getConnectionByDatasource();
+            String sql = "update tb_door set name=?,tel=?,addr=? where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,door.getName());
+            ps.setString(2,door.getTel());
+            ps.setString(3,door.getAddr());
+            ps.setInt(4,door.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn);
+        }
+    }
+    public void deleteById(Integer id){
+        Connection conn = null;
+        try {
+            conn = DBUtils.getConnectionByDatasource();
+            String sql = "delete from tb_door where id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn);
+        }
     }
 }
