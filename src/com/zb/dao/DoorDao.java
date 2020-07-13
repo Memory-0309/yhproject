@@ -98,4 +98,28 @@ public class DoorDao {
             DBUtils.close(conn);
         }
     }
+
+    public List<Door> showSale(){
+        Connection conn =null;
+        try {
+            conn = DBUtils.getConnectionByDatasource();
+            String sql = "select name,sale from tb_door";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            Door door = null;
+            List<Door> list = new ArrayList<>();
+            while (rs.next()){
+                door = new Door();
+                door.setName(rs.getString("name"));
+                door.setSale(rs.getString("sale"));
+                list.add(door);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn);
+        }
+        return null;
+    }
 }

@@ -26,6 +26,8 @@
 <h2>门店管理</h2>
 <div id="add-door">
 	<a href="door_add.jsp" target="rightFrame">新增门店</a>
+	<a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+	<a href="#" onclick="showsale()" target="rightFrame">查看门店销售额</a>
 </div>
 <hr/>
 <table border="1">
@@ -36,20 +38,6 @@
 		<th>门店地址</th>
 		<th class="width-80">操 作</th>
 	</tr>
-
-	<!-- 模版数据 -->
-	<%--<tr>
-		<td>1</td>
-		<td>永和大王(北三环西路店)</td>
-		<td>010-62112313</td>
-		<td>北三环西路甲18号院-1号大钟寺中坤广场d座</td>
-		<td>
-			<a href="doorDelete?id=">删除</a>
-			&nbsp;|&nbsp;
-			<a href="doorInfo?id=">修改</a>
-		</td>
-	</tr>--%>
-
 	<c:forEach items="${list}" var="door" varStatus="status">
 		<tr>
 			<td>${status.count}</td>
@@ -63,8 +51,72 @@
 			</td>
 		</tr>
 	</c:forEach>
-
 </table>
+	<div style="width:100%;float:none;display:block">
+		<div id="main" style="width:1100px;height:350px;margin: 0px auto;display:none"></div>
+	</div>
+	<script type="text/javascript">
+		function showsale() {
+			$("#main").css("display","block")
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '门店年销售额'
+                },
+                tooltip: {},
+                legend: {
+                    data:['销售额']
+                },
+                xAxis: {
+                    data: []
+                },
+                yAxis: {},
+                series: [{
+                    name: '销售额',
+                    type: 'bar',
+                    data: []
+                }]
+            };
+
+            //设置加载动画
+			myChart.showLoading()
+			//定义数据来接收后台返回的数据
+			var names = []; //用来接收店铺名称
+            var sales = []; //用来接收销量
+			//利用ajax请求发起数据请求
+			$.ajax({
+				url:"showsale",
+				type:"post",
+				data:{},
+				dataType:"json",
+				success:function (result) {
+					console.log(result)
+					for (var i=0;i<result.length;i++){
+					    names.push(result[i].name)//往最后一个元素追加
+					}
+                    for (var i=0;i<result.length;i++){
+                        sales.push(result[i].sale)//往最后一个元素追加
+                    }
+                    //隐藏加载动画
+					myChart.hideLoading();
+					//覆盖数据根据数据在家数据图表
+					myChart.setOption({
+                        xAxis: {
+                            data: names
+                        },
+                        series: [{
+                            data: sales
+                        }]
+					})
+
+                }
+			})
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+	</script>
 </body><!-- body-end  -->
 </html>
 
