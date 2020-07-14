@@ -27,6 +27,7 @@ public class DoorDao {
             door.setName(rs.getString("name"));
             door.setTel(rs.getString("tel"));
             door.setAddr(rs.getString("addr"));
+            door.setSale(rs.getString("sale"));
             list.add(door);
         }
         System.out.println(list);

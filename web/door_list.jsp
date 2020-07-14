@@ -28,6 +28,11 @@
 	<a href="door_add.jsp" target="rightFrame">新增门店</a>
 	<a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
 	<a href="#" onclick="showsale()" target="rightFrame">查看门店销售额</a>
+	<div style="float: right">
+		<form action="${pageContext.request.contextPath}/downexcel">
+			<input type="submit" value="报表导出"/>
+		</form>
+	</div>
 </div>
 <hr/>
 <table border="1">
