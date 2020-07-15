@@ -18,5 +18,8 @@
 	<div class="menu-bar">
 		<a href="order_list.jsp" target="rightFrame">› 订单管理</a>
 	</div>
+	<div class="menu-bar">
+		<a href="${pageContext.request.contextPath}/dayeditor.jsp" target="rightFrame">› 管理日总结</a>
+	</div>
 </body>
 </html>

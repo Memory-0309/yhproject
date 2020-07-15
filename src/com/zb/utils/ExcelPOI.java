@@ -30,7 +30,6 @@ public class ExcelPOI {
                 hssfCell.setCellValue(titels[i]);
                 hssfCell.setCellStyle(hssfCellStyle);
             }
-
             DoorDao doorDao = new DoorDao();
             List<Door> list = doorDao.findAll();
             //创建行，注意行的下标从0开始，之前已经设置了0了

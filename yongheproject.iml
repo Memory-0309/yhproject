@@ -23,5 +23,6 @@
     <orderEntry type="library" name="servlet-api" level="project" />
     <orderEntry type="library" name="gson-2.8.5" level="project" />
     <orderEntry type="library" name="poi-3.17" level="project" />
+    <orderEntry type="library" name="ueditor" level="project" />
   </component>
 </module>
