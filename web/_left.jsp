@@ -21,5 +21,8 @@
 	<div class="menu-bar">
 		<a href="${pageContext.request.contextPath}/dayeditor.jsp" target="rightFrame">› 管理日总结</a>
 	</div>
+	<div class="menu-bar">
+		<a href="${pageContext.request.contextPath}/alipay/alipay.trade.page.pay.jsp" target="rightFrame">› 服务续租</a>
+	</div>
 </body>
 </html>
