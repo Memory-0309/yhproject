@@ -1,81 +1,66 @@
 <%@ page pageEncoding="utf-8"%>
 <%-- 引入JSTL标签库 --%>
-<%@ taglib prefix="c" 
-	uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" 
-	uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c"
+		   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"
+		   uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>订单管理</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<style type="text/css">
-	body{ font-family: "微软雅黑"; background-color: #EDEDED; }
-	h2{ text-align: center;}
-	table{ width:96%; margin: 0 auto; text-align: center; border-collapse:collapse; font-size:16px;}
-	td, th{ padding: 5px;}
-	th{ background-color: #DCDCDC; width:120px; }
-	th.width-40{ width: 40px; }
-	th.width-50{ width: 50px; }
-	th.width-64{ width: 64px; }
-	th.width-80{ width: 80px; }
-	th.width-120{ width: 100px; }
-	hr{ margin-bottom:20px; border:1px solid #aaa; }
-	#add-order{text-align:center;font-size:20px;}
-</style>
-	
-<script type="text/javascript">
-	
-</script>
+	<title>订单管理</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+	<link rel="stylesheet" href="js/layui.css">
+	<script type="text/javascript" src="js/layui.all.js"></script>
+
 </head>
 <body>
-	<h2>订单管理</h2>
-	<div id="add-order">
-		<a href="findAllDoorToOrder_add" target="rightFrame">新增订单</a>
-	</div>
-	<hr/>
-	<table border="1">
-		<tr>
-			<th class="width-40">序号</th>
-			<th class="width-120">所属门店</th>
-			<th class="width-50">订单号</th>
-			<th class="width-40">类型</th>
-			<th class="width-40">人数</th>
-			<th class="width-50">收银员</th>
-			<th class="width-120">下单时间</th>
-			<th class="width-120">结账时间</th>
-			<th class="width-50">支付方式</th>
-			<th class="width-50">金额</th>
-			<th class="width-80">操 作</th>
-		</tr>
 
-	<!-- 模版数据 -->
-	<tr>
-			<td>1</td>
-			<td>永和大王(西直门店)</td>
-			<td>P001</td>
-			<td>堂食</td>
-			<td>1</td>
-			<td>张三</td>
-			<td>
-				2018-04-26 14:49:07
-				<%-- 
-				<fmt:formatDate value="${order.orderTime}"
-							pattern="yyyy-MM-dd HH:mm:ss" />
-				 --%>
-			</td>
-			<td>
-				2018-04-26 14:49:07
-			</td>
-			<td>微支付</td>
-			<td>16.0</td>
-			<td>
-				<a href="orderDelete?id=">删除</a>
-				&nbsp;|&nbsp;
-				<a href="orderInfo?id=">修改</a>
-			</td>
-		</tr>
-</table>
+	<table id="demo" lay-filter="test"></table>
+	<script>
+        layui.use('table', function(){
+            var table = layui.table;
+            //第一个实例
+            table.render({
+                elem: '#demo'
+                ,height: 312
+                ,url: '${pageContext.request.contextPath}/dopage' //数据接口
+				/*,request:{
+                    page:1,
+                    limit:2   默认值可以省略不屑
+				}*/
+				/*,response:{
+                    statusName: 'code' //规定数据状态的字段名称，默认：code
+                    ,statusCode: 0 //规定成功的状态码，默认：0
+                    ,msgName: 'message' //规定状态信息的字段名称，默认：msg
+                    ,countName: 'count' //规定数据总数的字段名称，默认：count
+                    ,dataName: 'data' //规定数据列表的字段名称，默认：data   默认值可以省略不屑
+                }*/
+                ,page: true //开启分页
+                ,cols:[[
+                    {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                    ,{field: 'door_id', title: '所属门店', width:80}
+                    ,{field: 'order_no', title: '订单号', width:80, sort: true}
+                    ,{field: 'order_type', title: '类型', width:80}
+                    ,{field: 'pnum', title: '人数', width: 177}
+                    ,{field: 'cashier', title: '收银员', width: 80, sort: true}
+                    ,{field: 'order_time', title: '下单时间', width: 80, sort: true}
+                    ,{field: 'pay_time', title: '结账时间', width: 80}
+                    ,{field: 'pay_type', title: '支付方式', width: 135, sort: true}
+                    ,{field: 'price', title: '金额', width: 135, sort: true}
+					]]
+				,page:{
+                    layout:['limit','count','prev','page','next','skip'],
+					curr:1,
+					groups:7,
+					first:false,
+					last:false,
+				}
+				,limit:2
+				,limits:[1,2,3]
+            });
+        });
+	</script>
 
 </body><!-- body-end  -->
 </html>
