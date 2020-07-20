@@ -9,10 +9,8 @@ import java.sql.SQLException;
  * 封装数据库连接的工具
  */
 public class DBUtils {
-
     private static ComboPooledDataSource dataSource =
             new ComboPooledDataSource("c3p0-config.xml");
-    
     //2.通过连接池获取连接
     public  static Connection getConnectionByDatasource(){
         Connection conn = null;
@@ -23,7 +21,6 @@ public class DBUtils {
         }
         return  conn;
     }
-
     //2.关闭资源
     public static void close(Connection conn){
         if (conn!=null){
@@ -34,6 +31,4 @@ public class DBUtils {
             }
         }
     }
-
-
 }
